@@ -2,7 +2,7 @@
 
 # Run 
 ```
-make -f ResolvedSeg
+make -f ResolvedSegdups.mak ASM={path.to.de.novo.assembly} TITLE={prefix.to.add.to.output}
 ```
 
 # Methods 
