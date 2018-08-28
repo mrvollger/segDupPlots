@@ -12,6 +12,8 @@ to point at your local download of ucsc's hg38 with no alts.
 ```
 make -f {path.to.local.repo}/ResolvedSegdups.mak ASM={path.to.de.novo.assembly} TITLE={prefix.to.add.to.output}
 ```
+Output plots can then be found in `adjustingExtra/` direcotry.
+
 
 ## Methods 
 The percentage plot reflects the percentage of bases within segmental duplications that are “Resolved.” Our definition of resolved is nuanced but the basic idea is that for a segdup to be resolved the assembly must continue into unique sequence on either side of the segmental duplication by at least some minimal extension. The basic steps are as follows:
