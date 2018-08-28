@@ -1,19 +1,19 @@
 # segDupPlots
 
-# Requirments 
-Mashmap must be installed and in your path. The bes way to do this is through conda. 
+## Install
+Mashmap must be installed and in your path. The best way to do this is through conda. 
 ```
 conda install -c bioconda mashmap 
 ```
 One line in the makefile ResolvedSegdups.mak must be changed as well. `REF=/net/...` must be updated
 to point at your local download of ucsc's hg38 with no alts. 
 
-# Run 
+## Run 
 ```
-make -f ResolvedSegdups.mak ASM={path.to.de.novo.assembly} TITLE={prefix.to.add.to.output}
+make -f {path.to.local.repo}/ResolvedSegdups.mak ASM={path.to.de.novo.assembly} TITLE={prefix.to.add.to.output}
 ```
 
-# Methods 
+## Methods 
 The percentage plot reflects the percentage of bases within segmental duplications that are “Resolved.” Our definition of resolved is nuanced but the basic idea is that for a segdup to be resolved the assembly must continue into unique sequence on either side of the segmental duplication by at least some minimal extension. The basic steps are as follows:
 1. Map the de novo assembly to the human reference using Mashmap 2.0 defaults. 
 2. Download the UCSCs annotated segdup track and merge overlapping segmental duplications by their maximum percent identity. 
