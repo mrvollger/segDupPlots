@@ -1,5 +1,13 @@
 # segDupPlots
 
+# Requirments 
+Mashmap must be installed and in your path. The bes way to do this is through conda. 
+```
+conda install -c bioconda mashmap 
+```
+One line in the makefile ResolvedSegdups.mak must be changed as well. `REF=/net/...` must be updated
+to point at your local download of ucsc's hg38 with no alts. 
+
 # Run 
 ```
 make -f ResolvedSegdups.mak ASM={path.to.de.novo.assembly} TITLE={prefix.to.add.to.output}
