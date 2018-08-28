@@ -37,22 +37,22 @@ a = open(args.allseg, 'w')
 
 
 for line in tabFile:
-    vals = line.split()
-    mapq = int(vals[4])
-    if (mapq < 30):
-        continue
-    (ctgChrom, ctgStart, ctgEnd, ctgName) = (vals[0], int(vals[1]), int(vals[2]), vals[3])
-    (segChrom, segStart, segEnd) = (vals[5], int(vals[6]), int(vals[7]))
-    pref = segStart - ctgStart
-    suff = ctgEnd - segEnd
-    segdup = "_".join(vals[5:8])
-    if (pref > args.extra and suff > args.extra):
-        segdups[segdup] = (True, min(pref, suff))
-    else:
+	vals = line.split()
+	mapq = int(vals[4])
+	if (mapq < 30):
+		continue
+	(ctgChrom, ctgStart, ctgEnd, ctgName) = (vals[0], int(vals[1]), int(vals[2]), vals[3])
+	(segChrom, segStart, segEnd) = (vals[5], int(vals[6]), int(vals[7]))
+	pref = segStart - ctgStart
+	suff = ctgEnd - segEnd
+	segdup = "_".join(vals[5:8])
+	if (pref > args.extra and suff > args.extra):
+		segdups[segdup] = (True, min(pref, suff))
+	else:
 		segdups[segdup] = (False, min(pref, suff))
-#		r.write("\t".join(vals[5:8]) + "\n")
-#	else:
-#		u.write("\t".join(vals[5:8]) + "\n")
+	#		r.write("\t".join(vals[5:8]) + "\n")
+	#	else:
+	#		u.write("\t".join(vals[5:8]) + "\n")
 
 for line in segdupLines:
     vals = line.split()

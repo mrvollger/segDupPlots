@@ -16,10 +16,15 @@ library(argparse)
 #suppressPackageStartupMessages(library("argparse"))
 # create defualt files to run
 genome = "Mitchell_CHM1"
-genome = "Yoruban"
+genome = "Mitchell_CHM1_V3"
 genome = "CHM13"
+genome = "Yoruban_feb_2018"
 genome = "Mitchell_CHM1_V2"
- 
+genome = "AK1"
+genome = "NA12878"
+genome = "HX1"
+
+
 euchro <- Sys.glob(sprintf("~/Desktop/work/assemblies/%s/*/Segdups/*.euchromatic.all", genome) )[1]
 all <- Sys.glob(sprintf("~/Desktop/work/assemblies/%s/*/Segdups/*.all", genome) )[1]
 dest <- sprintf("~/Desktop/data/genomeWide/%s/plots/SegDupPlots/", genome)
@@ -117,15 +122,15 @@ for( minDist in vals){
   p1 <- ggplot(segdups, aes(x=length, y=scaled, color=Status) ) + geom_point(size=2) + colScale +
     scale_x_continuous(trans='log10',labels = xkb, breaks = xbreaks) +
     scale_y_continuous(breaks = ybreaks) + 
-    xlab("Segmental duplication length (kb)") + ylab("Percent sequence identity") + myTheme + theme(legend.position="none")
+    xlab("Segmental duplication length (kbp)") + ylab("Percent sequence identity") + myTheme + theme(legend.position="none")
   mysave(paste0(minDist, ".pdf"), p1)
   
 }
 #system("convert ~/Desktop/gif/*.png -delay 3 -loop 0 ~/Desktop/gif/resolved.gif")
 
-myxlab = "Minimal extension from duplication boundary (kb)"
+myxlab = "Minimal extension from duplication boundary (kbp)"
 
-Extra = seq(0,1000000,100)
+Extra = seq(0,1000000,1000)
 PercentResolved = c()
 for(minDist in Extra ){
   euchro$Status = "unresolved"
@@ -180,6 +185,9 @@ p2; mysave("zeroTo250k.pdf", p2)
 #
 # read in genes
 #
+print(args$gene)
+if(!(is.na(args$gene)) & (args$gene != "NA")){
+
 genes = fread(args$gene)
 colnames(genes) = c("chr", "start", "end", "gene", "chr2", "start2", "end2", "perID")
 genes$perID = genes$perID*100
@@ -262,5 +270,5 @@ p4.0 = ggplot(df_gene, aes(perid)) + stat_ecdf(geom = "line", size =2, alpha = 0
 
 p4.0; mysave("MBunresolvedByPerID.pdf", p4.0)
 
-
+}
 
