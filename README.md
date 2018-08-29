@@ -12,8 +12,15 @@ to point at your local download of ucsc's hg38 with no alts.
 ```
 make -f {path.to.local.repo}/ResolvedSegdups.mak ASM={path.to.de.novo.assembly} TITLE={prefix.to.add.to.output}
 ```
-Output plots can then be found in `adjustingExtra/` direcotry.
+Output plots can then be found in `adjustingExtra/` directory.
 
+
+## test case
+```
+cd testCase/
+make -f ../ResolvedSegdups.mak ASM=testcase.fasta TITLE=asm
+```
+Once this is done you can compare the output in your `testCase` directory against `testCase/expectedResults/*`.
 
 ## Methods 
 One of the output plots shows the percentage of segmental duplications that are "Resolved." Our definition of resolved is that for a SD to be resolved the assembly must continue into unique sequence on either side of the SD by at least some minimal extension. The percentage plot shows the fraction of resolved bases as the minimal extension is varied from 0 to 250 kbp.
