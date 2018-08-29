@@ -23,5 +23,4 @@ The percentage plot reflects the percentage of bases within segmental duplicatio
 4. Determine if and by how much the de novo assembly extends past segmental duplication blocks on either side.
 5. Mark segmental duplications as resolved or unresolved based on whether the de novo assembly extends at least X kb into unique sequence on either side. (note a 50 kbp threshold was chosen for all the red and black dot plots showing resolved and unresolved duplications)
 6. Plot the percentage of segmental duplication bases resolved as a function of the minimal extension into unique sequence past a duplication block.
-7. The percentages reported in the text now represent the range of the percentage of resolved bases obtained by varying the minimal extension from 0-250 kbp. 
 
