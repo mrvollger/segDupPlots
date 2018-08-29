@@ -16,11 +16,14 @@ Output plots can then be found in `adjustingExtra/` direcotry.
 
 
 ## Methods 
-The percentage plot reflects the percentage of bases within segmental duplications that are “Resolved.” Our definition of resolved is nuanced but the basic idea is that for a segdup to be resolved the assembly must continue into unique sequence on either side of the segmental duplication by at least some minimal extension. The basic steps are as follows:
+One of the output plots shows the percentage of segmental duplications that are "Resolved." Our definition of resolved is that for a SD to be resolved the assembly must continue into unique sequence on either side of the SD by at least some minimal extension. The percentage plot shows the fraction of resolved bases as the minimal extension is varied from 0 to 250 kbp.
+
+The basic steps of identifying resolved vs unresolved duplications is as follows:
 1. Map the de novo assembly to the human reference using Mashmap 2.0 defaults. 
-2. Download the UCSCs annotated segdup track and merge overlapping segmental duplications by their maximum percent identity. 
-3. Intersect the de novo assembly track with the modified segmental duplication track
+2. Download the UCSCs annotated SD track and merge overlapping segmental duplications by their maximum percent identity. 
+3. Intersect the de novo assembly track with the modified segmental duplication track.
 4. Determine if and by how much the de novo assembly extends past segmental duplication blocks on either side.
-5. Mark segmental duplications as resolved or unresolved based on whether the de novo assembly extends at least X kb into unique sequence on either side. (note a 50 kbp threshold was chosen for all the red and black dot plots showing resolved and unresolved duplications)
+5. Mark segmental duplications as resolved or unresolved based on whether the de novo assembly extends at least X kb into unique sequence on either side. 
 6. Plot the percentage of segmental duplication bases resolved as a function of the minimal extension into unique sequence past a duplication block.
+
 
