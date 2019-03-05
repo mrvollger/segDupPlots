@@ -3,6 +3,7 @@ ADJPLOTS=adjustingExtra
 all: $(TITLE).mash \
 	$(ASM).fai \
 	$(TITLE).bed5 \
+	$(TITLE).bed \
 	$(TITLE).resolved \
 	$(TITLE)-SegdupResolutionByPoint.pdf \
 	$(TITLE).euchromatic.resolved \
@@ -50,6 +51,14 @@ $(TITLE).bed5: $(TITLE).mash
 	# the 250 number is jsut a fake mapq
 	awk '{ if ($$10 > 85) print  $$6"\t"$$8"\t"$$9"\t"$$1"\t"250  }' ${TITLE}.mash > $@
 	#cat $< | grep -v "^@" | awk '{ if ($$5 > 20) print $$3"\t"$$4"\t"$$4+$$9"\t"$$1"\t"$$5 }'> $@
+
+$(TITLE).bed: $(TITLE).mash
+	# the 250 number is jsut a fake mapq
+	awk '{ if ($$10 > 85) print  $$6"\t"$$8"\t"$$9"\t"$$1"\t"$$3"\t"$$4"\t"$$2"\t"$$10  }' ${TITLE}.mash | \
+	   bedtools sort -i - >	$@
+	#cat $< | grep -v "^@" | awk '{ if ($$5 > 20) print $$3"\t"$$4"\t"$$4+$$9"\t"$$1"\t"$$5 }'> $@
+
+
 
 $(TITLE).bb: $(TITLE).bed5
 	bedtools sort -i $(TITLE).bed5 > $(TITLE).bed5.sorted
