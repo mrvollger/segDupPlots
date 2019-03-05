@@ -1,5 +1,8 @@
 #!/usr/bin/env Rscript
 #.libPaths(c(.libPaths(), "/net/eichler/vol2/eee_shared/modules/anaconda3/envs/py3.20161130/lib/R/library"))
+#install.packages("devtools")
+#devtools::install_github("daattali/ggExtra")
+library(ggExtra)
 library(ggplot2)
 library(plyr)
 require(gridExtra)
@@ -13,16 +16,18 @@ library(stringr)
 library(data.table)
 #install.packages("argparse")
 library(argparse)
+
+
 #suppressPackageStartupMessages(library("argparse"))
 # create defualt files to run
 genome = "Mitchell_CHM1"
 genome = "Mitchell_CHM1_V3"
 genome = "CHM13"
 genome = "Yoruban_feb_2018"
-genome = "Mitchell_CHM1_V2"
 genome = "AK1"
 genome = "NA12878"
 genome = "HX1"
+genome = "Mitchell_CHM1_V2"
 
 
 euchro <- Sys.glob(sprintf("~/Desktop/work/assemblies/%s/*/Segdups/*.euchromatic.all", genome) )[1]
@@ -123,6 +128,7 @@ for( minDist in vals){
     scale_x_continuous(trans='log10',labels = xkb, breaks = xbreaks) +
     scale_y_continuous(breaks = ybreaks) + 
     xlab("Segmental duplication length (kbp)") + ylab("Percent sequence identity") + myTheme + theme(legend.position="none")
+  p1=ggMarginal(p1, type="histogram", alpha=.8, groupFill=T, yparams = list(bins=10), xparams = list(bins=15), size=6);
   mysave(paste0(minDist, ".pdf"), p1)
   
 }
@@ -272,3 +278,11 @@ p4.0; mysave("MBunresolvedByPerID.pdf", p4.0)
 
 }
 
+
+
+
+
+p1
+
+
+p7=ggMarginal(p1, type="histogram", alpha=.8, groupFill=T, yparams = list(bins=10), xparams = list(bins=15), size=6); p7

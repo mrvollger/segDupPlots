@@ -27,8 +27,8 @@ help:
 	@echo "     REF has to be updated to a no alts copy of ucsc's hg38"
 
 
-# THESE NEED TO BE CHANGED BY THE USER
-REF=/data/korens/devel/segDupPlots/ucsc.hg38.noalts.fasta
+# THIS NEEDS TO BE CHANGED BY THE USER
+REF=/net/eichler/vol2/home/mvollger/assemblies/hg38/ucsc.hg38.no_alts.fasta
 
 EUCHROMATIC=$(BASE_DIR)/ucsc.hg38.no_alts.fasta.euchromatic.bed
 GENES=$(BASE_DIR)/ucsc.hg38.gene.locations.bed 
