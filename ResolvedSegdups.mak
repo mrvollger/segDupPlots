@@ -1,5 +1,5 @@
 TITLE=asm
-ADJPLOTS=adjustingExtra
+ADJPLOTS=$(TITLE).adjustingExtra
 all: $(TITLE).mash \
 	$(ASM).fai \
 	$(TITLE).bed5 \
@@ -28,8 +28,7 @@ help:
 
 
 # THESE NEED TO BE CHANGED BY THE USER
-REF=~mvollger/assemblies/hg38/ucsc.hg38.no_alts.fasta
-
+REF=/data/korens/devel/segDupPlots/ucsc.hg38.noalts.fasta
 
 EUCHROMATIC=$(BASE_DIR)/ucsc.hg38.no_alts.fasta.euchromatic.bed
 GENES=$(BASE_DIR)/ucsc.hg38.gene.locations.bed 
@@ -43,9 +42,7 @@ $(ASM).fai: $(ASM)
 	samtools faidx $(ASM)
 
 $(TITLE).mash: $(ASM)
-	mashmap -r $(REF) -q $(ASM) -t 8
-	mv mashmap.out $(TITLE).mash	
-	# output is nammed mashmap.out
+	mashmap -r $(REF) -q $(ASM) -t 8 -o $(TITLE).mash
 
 $(TITLE).bed5: $(TITLE).mash
 	# the 250 number is jsut a fake mapq
@@ -71,21 +68,21 @@ $(TITLE).resolved: $(TITLE).bed5
 	bedtools intersect -a $^ -b $(MAX_SEGDUPS) -wa -wb  \
 		> $(TITLE).segdup_intersect
 	$(BASE_DIR)/PrintResolvedSegdups.py $(TITLE).segdup_intersect \
-		$(MAX_SEGDUPS) --resolved $@ --unresolved $(TITLE).unresolved \
+		$(MAX_SEGDUPS) --resolved $(TITLE).resolved --unresolved $(TITLE).unresolved \
 		--allseg $(TITLE).all --extra 50000
 
 $(TITLE).mean.resolved: $(TITLE).bed5
 	bedtools intersect -a $^ -b $(MEAN_SEGDUPS) -wa -wb \
 		> $(TITLE).segdup_intersect.mean
 	$(BASE_DIR)/PrintResolvedSegdups.py $(TITLE).segdup_intersect.mean \
-		$(MEAN_SEGDUPS) --resolved $@ --unresolved $(TITLE).mean.unresolved \
+		$(MEAN_SEGDUPS) --resolved $(TITLE).mean.resolved --unresolved $(TITLE).mean.unresolved \
 		--allseg $(TITLE).mean.all --extra 50000
 
 $(TITLE).col.resolved $(TITLE).col.all: $(TITLE).bed5
 	bedtools intersect -a $^ -b $(COL_SEGDUPS) -wa -wb \
 		> $(TITLE).segdup_intersect.col
 	$(BASE_DIR)/PrintResolvedSegdups.py $(TITLE).segdup_intersect.col \
-	   	$(MEAN_SEGDUPS) --resolved $@ --unresolved $(TITLE).col.unresolved \
+	   	$(MEAN_SEGDUPS) --resolved $(TITLE).col.resolved --unresolved $(TITLE).col.unresolved \
 		--allseg $(TITLE).col.all --extra 50000
 
 
@@ -159,6 +156,6 @@ $(TITLE).unresolved.gene.intersection: $(TITLE).resolved
 
 
 $(TITLE).inter.dups: $(TITLE).bed5	
-	bedtools intersect -a $(MAX_SEGDUPS) -b asm.bed5 > $(TITLE).inter.dups
+	bedtools intersect -a $(MAX_SEGDUPS) -b $(TITLE).bed5 > $(TITLE).inter.dups
 
 
